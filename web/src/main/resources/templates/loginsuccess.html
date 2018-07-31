@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="~{fragments/layout}">
+<head>
+    <title>Successfully logged in.</title>
+</head>
+<body>
+<div layout:fragment="content" th:remove="tag">
+<section>
+    <div class="jumbotron">
+        <div class="container">
+            <h1>Successfully logged in.</h1>
+        </div>
+    </div>
+</section>
+<section class="container">
+    <div class="row">
+        <div class="col-md-5">
+            <p>
+                <a th:href="@{'/'}" class="btn btn-default">
+                    <span class="glyphicon-hand-left glyphicon"></span> Home
+                </a>
+
+            </p>
+
+        </div>
+    </div>
+</section>
+</div>
+</body>
+</html>

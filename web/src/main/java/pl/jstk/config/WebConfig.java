@@ -21,6 +21,10 @@ import sun.net.www.protocol.http.AuthenticationHeader;
 @Configuration
 @EnableWebMvc
 @EnableWebSecurity
+@EnableGlobalMethodSecurity(
+        prePostEnabled = true,
+        securedEnabled = true,
+        jsr250Enabled = true)
 public class WebConfig extends WebSecurityConfigurerAdapter implements WebMvcConfigurer  {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {

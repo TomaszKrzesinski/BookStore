@@ -21,15 +21,12 @@
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
 
-                    <li  style="display: inline-block;">
-                        <a th:href="@{/logout}">
-                            <span class="glyphicon glyphicon-log-out"></span> Log out</a></li>
+                    <li  style="display: inline-block;"><a th:href="@{/logout}">
+                        <div sec:authorize="isAuthenticated()"><span class="glyphicon glyphicon-log-out"></span> Log out</div></a></li>
 
 
                     <li  style="display: inline-block;"><a th:href="@{/login}">
                         <div sec:authorize="!isAuthenticated()"><span class="glyphicon glyphicon-log-in"></span> Login</div></a></li>
-
-
                 </ul>
             </div>
             <div>

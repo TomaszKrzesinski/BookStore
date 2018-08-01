@@ -1,6 +1,8 @@
 package pl.jstk.controller;
 
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -39,6 +41,7 @@ public class BooksController {
         return ViewNames.BOOK;
     }
 
+    @Secured("ROLE_ADMIN")
     @PostMapping(value = "/books/delete")
     public String removeBook(@RequestParam("id") Long id, Model model) {
         BookTo book = bookService.findBookById(id);
@@ -85,5 +88,11 @@ public class BooksController {
         model.addAttribute("bookList", listOfBooks);
         model.addAttribute("findBook", findBook);
         return ViewNames.SEARCHRESULTS;
+    }
+
+    @ExceptionHandler({AccessDeniedException.class})
+    public String accessDeniedHandler(Model model) {
+        model.addAttribute("error", "You shall not pass!");
+        return ViewNames.ACCESSDENIED;
     }
 }

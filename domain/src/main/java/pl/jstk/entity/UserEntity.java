@@ -1,13 +1,11 @@
 package pl.jstk.entity;
 
+import pl.jstk.enumerations.BookStatus;
+import pl.jstk.enumerations.UserRole;
+
 import java.io.Serializable;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "USER")
@@ -20,15 +18,18 @@ public class UserEntity implements Serializable {
 	private String userName;
 	@Column(nullable = false, length = 200)
 	private String password;
+	@Enumerated(EnumType.STRING)
+	private UserRole role;
 
 	// for hibernate
 	protected UserEntity() {
 	}
 
-	public UserEntity(Long id, String user, String password) {
+	public UserEntity(Long id, String user, String password, UserRole role) {
 		this.id = id;
 		this.userName = user;
 		this.password = password;
+		this.role = role;
 	}
 
 	public Long getId() {
@@ -54,4 +55,8 @@ public class UserEntity implements Serializable {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
+	public UserRole getRole() { return role; }
+
+	public void setRole(UserRole role) {this.role = role; }
 }

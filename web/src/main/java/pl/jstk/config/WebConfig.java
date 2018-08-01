@@ -46,15 +46,15 @@ public class WebConfig extends WebSecurityConfigurerAdapter implements WebMvcCon
         httpSecurity.headers().frameOptions().disable();
     }
 
-//    @Autowired
- //   private DataSource dataSource;
+    @Autowired
+    private DataSource dataSource;
 
-//    @Autowired
-//    public void configAuthentication(AuthenticationManagerBuilder auth) throws Exception {
-//        auth.jdbcAuthentication().dataSource(dataSource)
-//                .usersByUsernameQuery("select username,password, enabled from user where username=?")
-//               .authoritiesByUsernameQuery("select username, role from user_roles where username=?");
-//    }
+    @Autowired
+    public void configAuthentication(AuthenticationManagerBuilder auth) throws Exception {
+        auth.jdbcAuthentication().dataSource(dataSource)
+                .usersByUsernameQuery("select user_name, password, enabled from user where user_name=?")
+               .authoritiesByUsernameQuery("select user_name, role from user where user_name=?");
+    }
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {

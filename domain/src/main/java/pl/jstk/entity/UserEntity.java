@@ -18,6 +18,8 @@ public class UserEntity implements Serializable {
 	private String userName;
 	@Column(nullable = false, length = 200)
 	private String password;
+	@Column(nullable = false)
+	private boolean enabled;
 	@Enumerated(EnumType.STRING)
 	private UserRole role;
 
@@ -25,10 +27,11 @@ public class UserEntity implements Serializable {
 	protected UserEntity() {
 	}
 
-	public UserEntity(Long id, String user, String password, UserRole role) {
+	public UserEntity(Long id, String user, String password, boolean enabled, UserRole role) {
 		this.id = id;
 		this.userName = user;
 		this.password = password;
+		this.enabled = enabled;
 		this.role = role;
 	}
 
@@ -59,4 +62,8 @@ public class UserEntity implements Serializable {
 	public UserRole getRole() { return role; }
 
 	public void setRole(UserRole role) {this.role = role; }
+
+	public boolean isEnabled() { return enabled;}
+
+	public void setEnabled(boolean enabled) { this.enabled = enabled; }
 }

@@ -1,17 +1,23 @@
 package pl.jstk.to;
 
+import pl.jstk.enumerations.UserRole;
+
 public class UserTo {
 	private Long id;
 	private String userName;
 	private String password;
+	private boolean enabled;
+	private UserRole role;
 
 	public UserTo() {
 	}
 
-	public UserTo(Long id, String user, String password) {
+	public UserTo(Long id, String user, String password, boolean enabled, UserRole role) {
 		this.id = id;
 		this.userName = user;
 		this.password = password;
+		this.enabled = enabled;
+		this.role = role;
 	}
 
 	public Long getId() {
@@ -37,4 +43,12 @@ public class UserTo {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
+	public UserRole getRole() { return role; }
+
+	public void setRole(UserRole role) {this.role = role; }
+
+	public boolean isEnabled() { return enabled;}
+
+	public void setEnabled(boolean enabled) { this.enabled = enabled; }
 }

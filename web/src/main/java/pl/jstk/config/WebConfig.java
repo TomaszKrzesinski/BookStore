@@ -5,6 +5,7 @@ import javax.sql.DataSource;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -52,16 +53,18 @@ public class WebConfig extends WebSecurityConfigurerAdapter implements WebMvcCon
     @Autowired
     public void configAuthentication(AuthenticationManagerBuilder auth) throws Exception {
         auth.jdbcAuthentication().dataSource(dataSource)
-                .usersByUsernameQuery("select user_name, password, enabled from user where user_name=?")
+               .usersByUsernameQuery("select user_name, password, enabled from user where user_name=?")
                .authoritiesByUsernameQuery("select user_name, role from user where user_name=?");
     }
+
+
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth.inMemoryAuthentication()
-                .withUser("admin").password(passwordEncoder().encode("admin")).roles("ADMIN")
+                .withUser("madmin").password(passwordEncoder().encode("madmin")).roles("ADMIN")
                 .and()
-                .withUser("user").password(passwordEncoder().encode("user")).roles("USER");
+                .withUser("muser").password(passwordEncoder().encode("muser")).roles("USER");
 
     }
 

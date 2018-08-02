@@ -64,11 +64,28 @@ public class BookControllerTest {
 
         mockMvc.perform(post("/login")
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED)
-                .param("username", "Tomasz")
-                .param("password", "tomasz")
+                .param("username", "madmin")
+                .param("password", "madmin")
         )
                 .andExpect(MockMvcResultMatchers.status().is3xxRedirection())
                 .andExpect(redirectedUrl("/loginsuccess"));
+
+
+    }
+
+    @Test
+    public void shouldFailAtLoginWithBadCredentials() throws Exception {
+        //given
+
+        //when
+
+        mockMvc.perform(post("/login")
+                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                .param("username", "nosuchuser")
+                .param("password", "passwordsucks")
+        )
+                .andExpect(MockMvcResultMatchers.status().is3xxRedirection())
+                .andExpect(redirectedUrl("/login?error=true"));
 
 
     }

@@ -1,17 +1,14 @@
 package pl.jstk.controller;
 
-import org.springframework.security.access.AccessDeniedException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.annotation.Secured;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import pl.jstk.constants.ModelConstants;
 import pl.jstk.constants.ViewNames;
 import pl.jstk.enumerations.BookStatus;
 import pl.jstk.service.BookService;
-import pl.jstk.to.BookDataTo;
 import pl.jstk.to.BookTo;
 
 import java.util.List;
@@ -19,13 +16,15 @@ import java.util.List;
 
 @Controller
 public class BooksController {
+    @SuppressWarnings("unused")
     private static final String INFO_TEXT = "Manage your books.";
+    @SuppressWarnings("unused")
     protected static final String WELCOME = "This is page with books.";
 
     private BookService bookService;
 
     @Autowired
-    public BooksController(BookService bookService){
+    public BooksController(BookService bookService) {
         this.bookService = bookService;
     }
 
@@ -42,6 +41,7 @@ public class BooksController {
         model.addAttribute("book", book);
         return ViewNames.BOOK;
     }
+
 
     @Secured("ROLE_ADMIN")
     @PostMapping(value = "/books/delete")
@@ -84,7 +84,6 @@ public class BooksController {
 
     @GetMapping(value = "/books/searchresults")
     public String displaySearchResults(@ModelAttribute("findBook") BookTo findBook, Model model) {
-        System.out.println(findBook.getAuthors());
 
         List<BookTo> listOfBooks = bookService.findBookByAuthorTitleStatus(findBook);
         model.addAttribute("bookList", listOfBooks);

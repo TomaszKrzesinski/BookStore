@@ -218,7 +218,6 @@ public class BookControllerTest {
                 .andExpect(model().attributeExists("findBook"))
                 .andExpect(model().attribute("bookList", books));
         verify(bookService, times(1)).findBookByAuthorTitleStatus(findBook);
-
     }
 
 

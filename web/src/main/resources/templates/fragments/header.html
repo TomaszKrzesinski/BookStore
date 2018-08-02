@@ -18,7 +18,19 @@
                     <li>
                         <a th:href="@{/books}">Books</a>
                     </li>
+                    <li>
+                        <a th:href="@{/}">
+                            <div sec:authorize="isAuthenticated()">
+                                Logged in as: <div sec:authentication="name"></div>
+                            </div>
+                            <div sec:authorize="!isAuthenticated()">
+                                You are not logged in.
+                            </div>
+
+                        </a>
+                    </li>
                 </ul>
+
                 <ul class="nav navbar-nav navbar-right">
 
                     <li  style="display: inline-block;"><a th:href="@{/logout}">

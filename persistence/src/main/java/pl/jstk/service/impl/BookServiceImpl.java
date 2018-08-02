@@ -54,7 +54,6 @@ public class BookServiceImpl implements BookService {
             List<BookEntity> listOfBookEntity;
             if(bookParameters.getStatus()==null) {
                  listOfBookEntity = bookRepository.findBookByAuthorTitle(bookParameters.getTitle(), bookParameters.getAuthors());
-  //              listOfBookEntity = bookRepository.findBookByTitle(bookParameters.getTitle());
             }
             else {
                 listOfBookEntity = bookRepository.findBookByAuthorTitleStatus(bookParameters.getTitle(),

@@ -5,6 +5,7 @@ import javax.sql.DataSource;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.Ordered;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -13,8 +14,10 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import sun.net.www.protocol.http.AuthenticationHeader;
 
@@ -22,6 +25,7 @@ import sun.net.www.protocol.http.AuthenticationHeader;
 @Configuration
 @EnableWebMvc
 @EnableWebSecurity
+@EnableTransactionManagement
 @EnableGlobalMethodSecurity(
         prePostEnabled = true,
         securedEnabled = true,
@@ -66,6 +70,14 @@ public class WebConfig extends WebSecurityConfigurerAdapter implements WebMvcCon
                 .and()
                 .withUser("muser").password(passwordEncoder().encode("muser")).roles("USER");
 
+    }
+
+    @Override
+    public void addViewControllers(ViewControllerRegistry registry) {
+        registry.addViewController("/login").setViewName("login");
+        registry.setOrder(Ordered.HIGHEST_PRECEDENCE);
+        registry.addViewController("/loginsuccess").setViewName("loginsuccess");
+        registry.setOrder(Ordered.HIGHEST_PRECEDENCE);
     }
 
 

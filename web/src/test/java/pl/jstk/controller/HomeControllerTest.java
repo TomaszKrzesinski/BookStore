@@ -1,5 +1,14 @@
 package pl.jstk.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.web.servlet.RequestBuilder;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import pl.jstk.constants.ModelConstants;
 
 import org.junit.Before;
@@ -19,9 +28,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
-@RunWith(SpringJUnit4ClassRunner.class)
+@RunWith(SpringRunner.class)
 @SpringBootTest
+@ContextConfiguration
 public class HomeControllerTest {
+    @Autowired
+    public PasswordEncoder encoder;
 
     private MockMvc mockMvc;
 
@@ -41,6 +53,25 @@ public class HomeControllerTest {
                      .andExpect(model().attribute(ModelConstants.MESSAGE, HomeController.WELCOME))
                      .andExpect(content().string(containsString("")));
 
+    }
+
+    @Test
+    public void testLoginPage() throws Exception {
+        // given
+        ResultActions resultActions = mockMvc.perform(get("/login"));
+        // then
+        resultActions.andExpect(status().isOk())
+                .andExpect(view().name("login"));
+    }
+
+
+    @Test
+    public void testLoginSuccessPage() throws Exception {
+        // given
+        ResultActions resultActions = mockMvc.perform(get("/loginsuccess"));
+        // then
+        resultActions.andExpect(status().isOk())
+                .andExpect(view().name("loginsuccess"));
     }
 
 }
